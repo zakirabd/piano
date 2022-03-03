@@ -2,9 +2,9 @@ const keys = document.querySelectorAll(".key"),
   note = document.querySelector(".nowplaying"),
   hints = document.querySelectorAll(".hints");
 
-function playNote(e) {
-  const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`),
-    key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+function playNote(keyCode) {
+  const audio = document.querySelector(`audio[data-key="${keyCode}"]`),
+    key = document.querySelector(`.key[data-key="${keyCode}"]`);
 
   if (!key) return;
 
@@ -29,4 +29,13 @@ hints.forEach(hintsOn);
 
 keys.forEach(key => key.addEventListener("transitionend", removeTransition));
 
-window.addEventListener("keydown", playNote);
+window.addEventListener("keydown", (e)=>{
+    playNote(e.keyCode)
+});
+
+for(const key of keys){
+    key.addEventListener('click', (e)=>{
+        playNote(e.target.getAttribute('data-key'))
+       
+    })
+}
